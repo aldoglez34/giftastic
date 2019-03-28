@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>Giftastic</title>
+
+    <meta charset="UTF-8">
+
+    <!-- css file link -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- responsive meta tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body>
+
+    <!-- ! header begins -->
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <div class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
+                        viewBox="0 0 24 24" focusable="false">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                        </path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <strong>Giftastic</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ! main content begins -->
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container" id="buttoncontainer">
+                <button type="button" class="btn mb-2 btn-dark showGIF">Jon Snow</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Daenerys Targaryen</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Cersei Lannister</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Arya Stark</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Tyrion Lannister</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Sansa Stark</button>
+                <button type="button" class="btn mb-2 btn-dark showGIF">Jaime Lannister</button>
+            </div>
+        </section>
+
+        <section class="text-center">
+            <h3 class="mb-4">Add a GOT Character</h3>
+            <input class="form-control mx-auto" style="width: 70%" id="newchar">
+            <a class="btn btn-primary my-2 text-white" id="addchar">Add</a>
+        </section>
+
+
+        <section class="text-center mt-4">
+            <h3 class="mb-4">GIFS from Giphy:</h3>
+            <div class="container" id="gifscontainer">
+            </div>
+        </section>
+    </main>
+
+    <!-- jquery link -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <!-- ajax link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- javascript file link -->
+    <script src="./assets/javascript/app.js"></script>
+
+</body>
+
+</html>
