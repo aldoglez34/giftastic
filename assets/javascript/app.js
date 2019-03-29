@@ -1,12 +1,21 @@
+this.onload = function () {
+
+    $("#sectionforgifs").hide();
+
+};
+
 $(document.body).on("click", ".showGIF", function () {
+
+    $("#sectionforgifs").show(500);
+
+    $("#gifscontainer").empty();
+
     // set up variables
-    var gotchar = $(this).text();
-    console.log(gotchar);
+    var animal = $(this).text();
     var key = "FlafZVuLA5Y0nJLXJGgJuyOBK5Q7ntpj";
 
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        gotchar + "&api_key=" + key + "&limit=10";
-    console.log(queryURL);
+        animal + "&api_key=" + key + "&limit=10";
 
     // ajax call
     $.ajax({
@@ -21,44 +30,62 @@ $(document.body).on("click", ".showGIF", function () {
         for (var i = 0; i < results.length; i++) {
 
             var gifdiv = $("<div>");
-
             var p = $("<p>");
+            var gif = $("<img>");
 
             p.text("Rating: " + results[i].rating);
 
-            var gif = $("<img>");
+            // add attributes to the gif
+            gif.attr("src", results[i].images["480w_still"].url);
+            gif.attr("state", "still");
+            gif.attr("src-still", results[i].images["480w_still"].url);
+            gif.attr("src-moving", results[i].images.fixed_height.url);
+            gif.attr("height", "200");
+            gif.attr("width", "200");
+            gif.attr("class", "playgif");
 
-            gif.attr("src", results[i].images.fixed_height.url);
-
+            // appending
             gifdiv.append(p);
-
             gifdiv.append(gif);
 
+            gifdiv.attr("class", "mb-4 border border-primary rounded");
+
             $("#gifscontainer").prepend(gifdiv);
-
         }
-
     });
-
-
-
 });
-
-
 
 $("#addchar").on("click", function () {
 
-    var char = $("#newchar").val().trim();
+    if ($("#newchar").val().trim() != "") {
+
+        var char = $("#newchar").val().trim();
+
+        var b = $("<button>");
+        b.attr("type", "button");
+        b.attr("class", "btn mb-2 btn-dark showGIF");
+        b.text(char);
+
+        $("#buttoncontainer").append(b);
+
+        console.log(char);
+    }
 
     $("#newchar").val("");
+});
 
-    var b = $("<button>");
-    b.attr("type", "button");
-    b.attr("class", "btn mb-2 btn-dark showGIF");
-    b.text(char);
+$(document.body).on("click", ".playgif", function () {
 
-    $("#buttoncontainer").append(b);
+    var gifstate = $(this).attr("state");
 
-    console.log(char);
+    if (gifstate === "still") {
+        $(this).attr("src", $(this).attr("src-moving"));
+        $(this).attr("state", "moving");
+    }
+
+    if (gifstate === "moving") {
+        $(this).attr("src", $(this).attr("src-still"));
+        $(this).attr("state", "still");
+    }
 
 });
