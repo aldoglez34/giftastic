@@ -132,6 +132,9 @@ $("#searchbttn").on("click", function () {
 
         // setup vars to call the omdb api
         var queryInfoURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=623cac65";
+
+        console.log(queryInfoURL);
+
         searchMovieInfo(queryInfoURL);
 
         // setup vars to call the giphy api
