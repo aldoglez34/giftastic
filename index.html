@@ -17,6 +17,13 @@
     <!-- responsive meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet">
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -26,42 +33,56 @@
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
                 <div class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
-                        viewBox="0 0 24 24" focusable="false">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
-                        </path>
-                        <circle cx="12" cy="13" r="4"></circle>
-                    </svg>
-                    <strong>Giftastic</strong>
+                    <i class="fas fa-film mr-2"></i>
+                    <strong>Giftastic | Movie Finder</strong>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- ! main content begins -->
-    <main role="main">
+    <div class="container">
 
-        <section class="jumbotron text-center">
-            <div class="container" id="buttoncontainer">
-                <h3 class="mb-4">My animals</h3>
-                <button type="button" class="btn mb-2 btn-dark showGIF">Dog</button>
-                <button type="button" class="btn mb-2 btn-dark showGIF">Cat</button>
+        <div class="row mt-4 pb-4">
+            <div class="col-12 mt-4 text-center">
+                <h2 class="css_text text-danger">SEARCH A MOVIE!</h2>
+                <input class="form-control mx-auto alert alert-secondary mt-4" style="width: 60%" id="movieTitle">
+                <a class="btn btn-warning my-2 text-dark font-weight-bold" id="searchbttn">Search</a>
             </div>
-        </section>
+        </div>
 
-        <section class="text-center">
-            <h3 class="mb-4">Add a new animal</h3>
-            <input class="form-control mx-auto alert alert-secondary" style="width: 60%" id="newchar">
-            <a class="btn btn-primary my-2 text-white" id="addchar">Add</a>
-        </section>
+        <hr>
 
-        <section class="jumbotron text-center mt-4" id="sectionforgifs">
-            <h3 class="mb-4">Click on any gif to play it</h3>
-            <div class="container" id="gifscontainer">
+    </div>
+
+    <div class="container mb-4" id="movieinfocontainer">
+
+        <h2 id="m_title"></h2>
+        <h3 id="m_year"></h3>
+        <h3 id="m_director"></h3>
+        <h3 id="m_actors"></h3>
+        <h3 id="m_metascore"></h3>
+        <h3 id="m_boxoffice"></h3>
+        <h4 id="m_plot"></h4>
+
+        <hr>
+
+        <div class="row">
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif0">
             </div>
-        </section>
-    </main>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif1">
+            </div>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif2">
+            </div>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif3">
+            </div>
+        </div>
+
+    </div>
 
     <!-- jquery link -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
