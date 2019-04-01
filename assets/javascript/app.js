@@ -88,13 +88,7 @@ function searchMovieGIFs(queryGIFsURL) {
 
         for (var i = 0; i < response.data.length; i++) {
 
-            // var gifdiv = $("<div>");
-            // var p = $("<p>");
-            // var gif = $("<img>");
-
             var gif = $("#gif" + i);
-
-            // p.text("Rating: " + results[i].rating);
 
             // add attributes to the gif
             gif.attr("src", response.data[i].images["480w_still"].url);
@@ -103,16 +97,10 @@ function searchMovieGIFs(queryGIFsURL) {
             gif.attr("src-moving", response.data[i].images.fixed_height.url);
             gif.attr("height", "200");
             gif.attr("width", "200");
+
             // add the play gif class so you can "pause" the gifs by clicking them
             gif.attr("class", "playgif");
 
-            // appending
-            // gifdiv.append(p);
-            // gifdiv.append(gif);
-
-            // gifdiv.attr("class", "mb-4 border border-primary rounded");
-
-            // $("#gifsrow").append(gif);
         }
     });
 }
@@ -143,7 +131,7 @@ $("#searchbttn").on("click", function () {
         var movie = $("#movieTitle").val().trim();
 
         // setup vars to call the omdb api
-        var queryInfoURL = "http://www.omdbapi.com/?t=" + movie + "&apikey=623cac65";
+        var queryInfoURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=623cac65";
         searchMovieInfo(queryInfoURL);
 
         // setup vars to call the giphy api
