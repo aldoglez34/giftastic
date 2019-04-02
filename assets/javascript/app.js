@@ -1,61 +1,25 @@
 this.onload = function () {
 
-    $("#sectionforgifs").hide();
-
     $("#movieinfocontainer").hide();
+    $("#addtofavoritesbttn").hide();
+
+    // updates the favorites list
+    var x = localStorage.getItem("0")
+    if (x != 0) {
+        for (var i = 1; i <= x; i++) {
+
+            var a = $("<a>");
+            a.attr("class", "dropdown-item searchfromdropdown");
+            a.text(localStorage.getItem(i));
+
+            $("#favslist").prepend(a);
+        }
+    }
 
 };
 
-$(document.body).on("click", ".showGIF", function () {
-
-    $("#sectionforgifs").show(500);
-
-    $("#gifscontainer").empty();
-
-    // set up variables
-    var animal = $(this).text();
-    var key = "FlafZVuLA5Y0nJLXJGgJuyOBK5Q7ntpj";
-
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        animal + "&api_key=" + key + "&limit=10";
-
-    // ajax call
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-
-        console.log(response);
-
-        var results = response.data;
-
-        for (var i = 0; i < results.length; i++) {
-
-            var gifdiv = $("<div>");
-            var p = $("<p>");
-            var gif = $("<img>");
-
-            p.text("Rating: " + results[i].rating);
-
-            // add attributes to the gif
-            gif.attr("src", results[i].images["480w_still"].url);
-            gif.attr("state", "still");
-            gif.attr("src-still", results[i].images["480w_still"].url);
-            gif.attr("src-moving", results[i].images.fixed_height.url);
-            gif.attr("height", "200");
-            gif.attr("width", "200");
-            gif.attr("class", "playgif");
-
-            // appending
-            gifdiv.append(p);
-            gifdiv.append(gif);
-
-            gifdiv.attr("class", "mb-4 border border-primary rounded");
-
-            $("#gifscontainer").prepend(gifdiv);
-        }
-    });
-});
+// global variables that hold the title of the movie being searched
+var movietitle;
 
 function searchMovieInfo(queryInfoURL) {
 
@@ -64,15 +28,29 @@ function searchMovieInfo(queryInfoURL) {
         method: "GET"
     }).then(function (response) {
 
-        // console.log(response);
+        if (response.Response === "False") {
+            alert("Movie doesn't exist in the database");
+        }
+        else {
 
-        $("#m_title").text("Title: " + response.Title);
-        $("#m_year").text("Year: " + response.Year);
-        $("#m_director").text("Director: " + response.Director);
-        $("#m_actors").text("Actors: " + response.Actors);
-        $("#m_metascore").text("Metascore: " + response.Metascore);
-        $("#m_boxoffice").text("BoxOffice: " + response.BoxOffice);
-        $("#m_plot").text("Plot: " + response.Plot);
+            // update html
+            $("#m_title").text("Title: " + response.Title);
+            $("#m_year").text("Year: " + response.Year);
+            $("#m_director").text("Director: " + response.Director);
+            $("#m_actors").text("Actors: " + response.Actors);
+            $("#m_metascore").text("Metascore: " + response.Metascore);
+            $("#m_boxoffice").text("BoxOffice: " + response.BoxOffice);
+            $("#m_plot").text("Plot: " + response.Plot);
+
+            // update add to favorites button
+            $("#addtofavoritesbttn").text("Add '" + response.Title + "' to my favorites");
+
+            // update the global variable with the movie title
+            movietitle = response.Title;
+
+            // show container with the movie info
+            $("#movieinfocontainer").show(500);
+        }
 
     });
 };
@@ -124,7 +102,7 @@ $(document.body).on("click", ".playgif", function () {
 $("#searchbttn").on("click", function () {
 
     if ($("#movieTitle").val().trim() === "") {
-        alert("Type a movie first");
+        // alert("Type a movie first");
     }
     else {
 
@@ -133,39 +111,98 @@ $("#searchbttn").on("click", function () {
         // setup vars to call the omdb api
         var queryInfoURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=623cac65";
 
-        console.log(queryInfoURL);
-
         searchMovieInfo(queryInfoURL);
 
         // setup vars to call the giphy api
         // query will be limited to 3 gifs
-        var queryGIFsURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=FlafZVuLA5Y0nJLXJGgJuyOBK5Q7ntpj&limit=4";
+        var queryGIFsURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=FlafZVuLA5Y0nJLXJGgJuyOBK5Q7ntpj&limit=8";
         searchMovieGIFs(queryGIFsURL);
 
-        $("#movieinfocontainer").show(500);
+    }
 
-        $("#movieTitle").val("");
+    $("#addtofavoritesbttn").show(500);
+
+});
+
+$("#playallgifs").on("click", function () {
+
+    // iterate the total amout of gifs
+    for (var i = 0; i < 8; i++) {
+
+        $("#gif" + i).attr("src", $("#gif" + i).attr("src-moving"));
+        $("#gif" + i).attr("state", "moving");
 
     }
 
 });
 
-$("#addchar").on("click", function () {
+$("#addtofavoritesbttn").on("click", function () {
 
-    if ($("#newchar").val().trim() != "") {
+    // check if the movie IS in the list already
+    var cansave = true;
+    var x = localStorage.getItem("0")
+    if (x != 0) {
+        for (var i = 1; i <= x; i++) {
 
-        var char = $("#newchar").val().trim();
+            if (movietitle === localStorage.getItem(i)) {
+                cansave = false;
+                alert(localStorage.getItem(i) + " is already in your favorites list")
+            }
 
-        var b = $("<button>");
-        b.attr("type", "button");
-        b.attr("class", "btn mb-2 btn-dark showGIF");
-        b.text(char);
-
-        $("#buttoncontainer").append(b);
-
-        console.log(char);
+        }
     }
 
-    $("#newchar").val("");
+    if (cansave) {
+        // get the value in position 0
+        // ! this value now holds the amount of favorite movies
+        var mcounter = localStorage.getItem("0");
+
+        // storages movie title in the position 0 of the local storage
+        localStorage.setItem(parseInt(mcounter) + 1, movietitle);
+
+        // updates the position 0 on the local storage
+        localStorage.setItem("0", parseInt(mcounter) + 1);
+
+        addnewfavorite();
+    }
+
 });
 
+$("#clearfavorites").on("click", function () {
+
+    localStorage.clear();
+    localStorage.setItem("0", 0);
+
+    $("#favslist").html("");
+
+});
+
+function addnewfavorite() {
+
+    var a = $("<a>");
+    a.attr("class", "dropdown-item searchfromdropdown");
+    a.text(movietitle);
+
+    $("#favslist").prepend(a);
+
+}
+
+$(document.body).on("click", ".searchfromdropdown", function () {
+
+    var movie = $(this).text();
+
+    console.log(movie);
+
+    // setup vars to call the omdb api
+    var queryInfoURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=623cac65";
+
+    searchMovieInfo(queryInfoURL);
+
+    // setup vars to call the giphy api
+    // query will be limited to 3 gifs
+    var queryGIFsURL = "https://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=FlafZVuLA5Y0nJLXJGgJuyOBK5Q7ntpj&limit=8";
+    searchMovieGIFs(queryGIFsURL);
+
+    $("#addtofavoritesbttn").show(500);
+
+});

@@ -34,7 +34,7 @@
             <div class="container d-flex justify-content-between">
                 <div class="navbar-brand d-flex align-items-center">
                     <i class="fas fa-film mr-2"></i>
-                    <strong>Giftastic | Movie Finder</strong>
+                    <strong>Movie Finder</strong>
                 </div>
             </div>
         </div>
@@ -43,11 +43,30 @@
     <!-- ! main content begins -->
     <div class="container">
 
-        <div class="row mt-4 pb-4">
+        <div class="row mt-4 pb-2">
             <div class="col-12 mt-4 text-center">
-                <h2 class="css_text text-danger">SEARCH A MOVIE!</h2>
-                <input class="form-control mx-auto alert alert-secondary mt-4" style="width: 60%" id="movieTitle">
-                <a class="btn btn-warning my-2 text-dark font-weight-bold" id="searchbttn">Search</a>
+                <h2 class="css_text">SEARCH A MOVIE!</h2>
+                <input class="form-control mx-auto alert alert-secondary mt-4" placeholder="Enter movie"
+                    style="width: 60%" id="movieTitle">
+
+                <!-- search button -->
+                <button type="button btn-warning" class="btn btn-primary mt-2" id="searchbttn">Search</button>
+
+                <!-- favorites button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle mt-2" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Favorites
+                    </button>
+                    <div class="dropdown-menu">
+                        <div id="favslist">
+
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="clearfavorites">Clear list</a>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -64,6 +83,10 @@
         <h3 id="m_metascore"></h3>
         <h3 id="m_boxoffice"></h3>
         <h4 id="m_plot"></h4>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-secondary mt-2" id="addtofavoritesbttn"></button>
+        </div>
 
         <hr>
 
@@ -82,11 +105,36 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif4">
+            </div>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif5">
+            </div>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif6">
+            </div>
+            <div class="col mt-1 d-flex justify-content-center">
+                <img id="gif7">
+            </div>
+        </div>
+
+        <p class="text-muted mt-4">You can click on any gif to play it or
+            <span class="text-primary" style="cursor: pointer;" id="playallgifs">click here </span>
+            to play them all.</p>
+
     </div>
 
-    <!-- jquery link -->
+    <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
     <!-- ajax link -->
