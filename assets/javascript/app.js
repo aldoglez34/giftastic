@@ -164,6 +164,8 @@ $("#addtofavoritesbttn").on("click", function () {
         localStorage.setItem("0", parseInt(mcounter) + 1);
 
         addnewfavorite();
+
+        alert(movietitle + " was added to your favorites");
     }
 
 });
